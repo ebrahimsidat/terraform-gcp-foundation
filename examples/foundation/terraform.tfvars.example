@@ -1,0 +1,29 @@
+project_id   = "my-project-id"
+region       = "northamerica-northeast1"
+network_name = "core-vpc"
+
+subnets = {
+  "app-nane1" = {
+    region        = "northamerica-northeast1"
+    ip_cidr_range = "10.10.0.0/20"
+  }
+  "gke-nane1" = {
+    region        = "northamerica-northeast1"
+    ip_cidr_range = "10.20.0.0/20"
+
+    secondary_ranges = {
+      pods     = "10.100.0.0/16"
+      services = "10.200.0.0/20"
+    }
+  }
+  "app-nane2" = {
+    region        = "northamerica-northeast2"
+    ip_cidr_range = "10.30.0.0/20"
+  }
+}
+
+role_members = {
+  "roles/compute.networkViewer"      = ["group:network-ops@example.com"]
+  "roles/logging.viewer"             = ["group:security-ops@example.com"]
+  "roles/iap.tunnelResourceAccessor" = ["group:platform-admins@example.com"]
+}
